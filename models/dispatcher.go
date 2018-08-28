@@ -28,7 +28,7 @@ func (d Dispatcher) Start() {
 	d.initWorkers()
 }
 
-// Collect add job requests to work queue
-func (d Dispatcher) Collect(j Job) {
+// Exec add job requests to work queue
+func (d Dispatcher) Exec(j Job) {
 	d.wq <- j
 }

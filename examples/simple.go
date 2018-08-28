@@ -13,12 +13,12 @@ import (
 
 // JobType1 struct for Worker to process
 type JobType1 struct {
-	Id    int
+	Id    string
 	Type1 string
 }
 
 // Perform - specific task or one work unit
-func (j JobType1) Perform() {
+func (j JobType1) Exec() {
 	fmt.Printf("Performing job waiting... %+v\n", j)
 	time.Sleep(3 * time.Second)
 	fmt.Printf("Performing job finish %+v\n", j)
@@ -26,12 +26,12 @@ func (j JobType1) Perform() {
 
 // JobType2 struct for Worker to process
 type JobType2 struct {
-	Id    int
+	Id    string
 	Type2 string
 }
 
 // Perform - specific task or one work unit
-func (j JobType2) Perform() {
+func (j JobType2) Exec() {
 	fmt.Printf("Performing job waiting... %+v\n", j)
 	time.Sleep(time.Second)
 	fmt.Printf("Performing job finish %+v\n", j)
@@ -48,18 +48,17 @@ func main() {
 
 	i := 0
 	for {
-		fmt.Printf("Before Collect : %d\n", i)
-		var job models.Job
-		fmt.Println(i % 2)
-
-		if (i % 2) == 0 {
-			job = &JobType1{Id: i, Type1: fmt.Sprintf("type1-%d", i)}
-		} else {
-			job = &JobType2{Id: i, Type2: fmt.Sprintf("type2-%d", i)}
-		}
-
-		d.Collect(job) // Collects new job requests
-		fmt.Printf("After Collect : %d\n", i)
 		i = i + 1
+		d.Exec(&JobType1{Id: fmt.Sprintf("my-job-%d-1", i), Type1: fmt.Sprintf("message %d-1", i)}) // Exec new job requests
+		d.Exec(&JobType1{Id: fmt.Sprintf("my-job-%d-2", i), Type1: fmt.Sprintf("message %d-2", i)}) // Exec new job requests
+		d.Exec(&JobType1{Id: fmt.Sprintf("my-job-%d-3", i), Type1: fmt.Sprintf("message %d-3", i)}) // Exec new job requests
+		d.Exec(&JobType1{Id: fmt.Sprintf("my-job-%d-4", i), Type1: fmt.Sprintf("message %d-4", i)}) // Exec new job requests
+		d.Exec(&JobType1{Id: fmt.Sprintf("my-job-%d-5", i), Type1: fmt.Sprintf("message %d-5", i)}) // Exec new job requests
+
+		d.Exec(&JobType2{Id: fmt.Sprintf("my-job-%d-1", i), Type2: fmt.Sprintf("message %d-1", i)}) // Exec new job requests
+		d.Exec(&JobType2{Id: fmt.Sprintf("my-job-%d-2", i), Type2: fmt.Sprintf("message %d-2", i)}) // Exec new job requests
+		d.Exec(&JobType2{Id: fmt.Sprintf("my-job-%d-3", i), Type2: fmt.Sprintf("message %d-3", i)}) // Exec new job requests
+		d.Exec(&JobType2{Id: fmt.Sprintf("my-job-%d-4", i), Type2: fmt.Sprintf("message %d-4", i)}) // Exec new job requests
+		d.Exec(&JobType2{Id: fmt.Sprintf("my-job-%d-5", i), Type2: fmt.Sprintf("message %d-5", i)}) // Exec new job requests
 	}
 }

@@ -22,7 +22,7 @@ func (w Worker) Run() {
 		for {
 			select {
 			case work := <-w.wq:
-				work.Perform()
+				work.Exec()
 			case <-w.stop:
 				return
 			}
