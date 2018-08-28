@@ -17,7 +17,7 @@ type JobType1 struct {
 	Type1 string
 }
 
-// Perform - specific task or one work unit
+// Exec - specific task or one work unit
 func (j JobType1) Exec() {
 	fmt.Printf("Performing job waiting... %+v\n", j)
 	time.Sleep(3 * time.Second)
@@ -30,7 +30,7 @@ type JobType2 struct {
 	Type2 string
 }
 
-// Perform - specific task or one work unit
+// Exec - specific task or one work unit
 func (j JobType2) Exec() {
 	fmt.Printf("Performing job waiting... %+v\n", j)
 	time.Sleep(time.Second)
